@@ -17,6 +17,11 @@ def index():
 	user = {'username': 'Jerry'}
 	return render_template('index.html', title='Home')
 
+@app.route('/user/<username>')
+@login_required
+def user(username):
+	user = User.query.filter_by(username=username).first_or_404()
+	return render_template('user.html', user=user)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
